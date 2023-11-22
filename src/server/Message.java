@@ -10,7 +10,7 @@ class Message {
     public Message(int statusCode, int startLength, int endLength, int amountLength, byte[] msg) {
         this.statusCode = statusCode;
         this.msg = msg;
-        this.startLength = startLength;
+        this.startLength = startLength;   ln
         this.endLength = endLength;
         this.amountLength = amountLength;
     }
