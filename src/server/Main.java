@@ -36,7 +36,7 @@ class UDPServer implements Runnable{
                 DatagramPacket packet = new DatagramPacket(buff, buff.length);
                 serverSocket.receive(packet);
                 String[] data = new String(packet.getData(), 0, packet.getLength()).split("\\s+");
-                if(data[0].equals("GET")){
+                if(data[0].equals("HI")){
                     InetAddress address = packet.getAddress();
                     int port = packet.getPort();
                     new Thread(new Connection(address, port, data[1])).start();
@@ -58,6 +58,8 @@ class Connection implements Runnable{
     private String fileName;
     private byte[] fileBytes;
     private boolean status;
+    File dir;
+
     public Connection(
             InetAddress address,
             int port,
@@ -68,6 +70,12 @@ class Connection implements Runnable{
         this.fileName = fileName;
         createSocket();
 
+//        try{
+//            dir = new File("files");
+//        }catch (IOException e){
+//            System.out.println();
+//        }
+
         getFile(fileName);
     }
 
@@ -75,6 +83,9 @@ class Connection implements Runnable{
     public void run() {
         String msgText;
         DatagramPacket packet;
+
+
+
         if (!status) {
             msgText = "No file was found with name provided";
             Message msg = new Message(404, 0, msgText.length(), msgText.length(), msgText.getBytes());
