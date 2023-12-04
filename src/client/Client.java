@@ -102,7 +102,6 @@ public class Client{
             case 100: {
                 this.packetsAmount = Integer.parseInt(new String(recivedMsg, startLength + 16, endLength).substring(8));
                 startRecieveFile();
-                //System.out.println(packetsAmount);
                 break;
             }
             case 101:{
@@ -124,7 +123,6 @@ public class Client{
             DatagramPacket packet = new DatagramPacket(buff, 1500, address, port);
             try {socket.receive(packet);} catch (IOException e) {throw new RuntimeException(e);}
             decode(packet.getData());
-            System.out.println(packet.getLength());
         }
         data.sort(Comparator.comparingInt(Message::getStartLength));
         createFile();
